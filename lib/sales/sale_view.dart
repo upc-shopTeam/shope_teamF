@@ -106,62 +106,62 @@ class _SaleViewState extends State<SaleView> {
                               color: Colors.black87,
                               width: 1,
                             ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(38), color: const Color(0xFF42A5F5)),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        item.amount -= 1;
+                            Column(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(38), color: const Color(0xFF42A5F5)),
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            item.amount -= 1;
 
-                                        if (item.amount < 0) {
-                                          item.amount = 0;
-                                        }
-                                        total = 0;
-                                        for (var i in items) {
-                                          var a = i.amount * i.product.unitPrice;
-                                          total += a;
-                                        }
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                    ),
+                                            if (item.amount < 0) {
+                                              item.amount = 0;
+                                            }
+                                            total = 0;
+                                            for (var i in items) {
+                                              var a = i.amount * i.product.unitPrice;
+                                              total += a;
+                                            }
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(item.amount.toString()),
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            item.amount += 1;
+                                            total = 0;
+                                            for (var i in items) {
+                                              var a = i.amount * i.product.unitPrice;
+                                              total += a;
+                                            }
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(item.amount.toString()),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        item.amount += 1;
-                                        total = 0;
-                                        for (var i in items) {
-                                          var a = i.amount * i.product.unitPrice;
-                                          total += a;
-                                        }
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const VerticalDivider(
-                              thickness: 1,
-                              color: Colors.black87,
-                              width: 1,
-                            ),
-                            Text(
-                              "TOTAL: S/$sum.00",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                              color: Colors.red),
+                                ),
+                                Text(
+                                  "TOTAL: S/$sum.00",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.red),
+                                ),
+                              ],
                             ),
                           ]),
                       const Divider(
@@ -177,13 +177,7 @@ class _SaleViewState extends State<SaleView> {
               },
             ),
           ),
-          const Divider(
-            height: 20,
-            thickness: 2,
-            indent: 20,
-            endIndent: 0,
-            color: Colors.black,
-          ),
+
           Text(
             "Total: ${total}",
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

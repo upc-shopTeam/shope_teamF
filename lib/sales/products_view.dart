@@ -18,7 +18,7 @@ class _ProductViewState extends State<ProductView> {
 
   late Future<List<Product>> products;
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
-  final url = Uri.parse("https://my-json-server.typicode.com/LITO-TR/bdShop/products");
+  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
 
  @override
   void initState() {
@@ -61,47 +61,49 @@ int numCar = 0;
           )
         ],
       ),
-      body: FutureBuilder<List<Product>>(
-          future: products,
-          builder: (context, snap) {
-            if(snap.hasData){
-              return ListView.builder(
-                  itemCount: snap.data!.length,
-                  itemBuilder: (context, index) {
-                    var product = snap.data![index];
+      body:
+          FutureBuilder<List<Product>>(
+              future: products,
+              builder: (context, snap) {
+                if(snap.hasData){
+                  return ListView.builder(
+                      itemCount: snap.data!.length,
+                      itemBuilder: (context, index) {
+                        var product = snap.data![index];
 
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Card(
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Card(
 
-                        child: ListTile(
-                          leading:   Image.network(product.img),
-                          title: Text(product.name),
-                          trailing: Text("Stock: ${product.currentAmount.toString()} und. \n Precio: S/${product.unitPrice.toString()} "),
-                          onTap:() {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => DetailView(p: product),
-                              ));
-                          },
+                            child: ListTile(
+                              leading:   Image.network(product.img),
+                              title: Text(product.name),
+                              trailing: Text("Stock: ${product.currentAmount.toString()} und. \n Precio: S/${product.unitPrice.toString()} "),
+                              onTap:() {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => DetailView(p: product),
+                                  ));
+                              },
 
-                        ),
+                            ),
 
-                      ),
-                    );
+                          ),
+                        );
 
-              });
-            }
-            else if(snap.hasError) {
-              return  Center(
-                child: Text("error ${snap.error}"),
-              );
+                  });
+                }
+                else if(snap.hasError) {
+                  return  Center(
+                    child: Text("error ${snap.error}"),
+                  );
 
-            }
-            return const Center(child: CircularProgressIndicator());
-          }
+                }
+                return const Center(child: CircularProgressIndicator());
+              }
 
 
-    ),);
+    ),
+    );
   }
 
   Future<List<Product>> getProducts() async{

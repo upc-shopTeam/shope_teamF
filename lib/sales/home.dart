@@ -8,12 +8,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(
-        title: const Text('Shop Team',style: TextStyle(
 
-        ),),
-      ),
-        body: SafeArea(child:GridView.count(
+        body: SafeArea(
+          child:GridView.count(
         primary: false,
         padding: const EdgeInsets.all(20),
     crossAxisSpacing: 10,
