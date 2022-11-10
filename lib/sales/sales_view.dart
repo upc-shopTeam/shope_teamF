@@ -15,7 +15,7 @@ class _SalesViewState extends State<SalesView> {
 
   bool _expanded = false;
 
-  final url = Uri.parse("http://10.0.2.2:9000/api/invoices/");
+  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/invoices/");
 
   late Future<List<Sale>> sales;
   @override
@@ -148,7 +148,7 @@ class _SalesViewState extends State<SalesView> {
             );
 
           }
-          return const CircularProgressIndicator();
+          return Center(child: const CircularProgressIndicator());
         }
       )
 
