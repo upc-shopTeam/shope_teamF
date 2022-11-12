@@ -24,7 +24,6 @@ class _SalesViewState extends State<SalesView> {
     super.initState();
     sales = getProducts();
 
-
   }
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,6 @@ class _SalesViewState extends State<SalesView> {
 
                 var sale = snap.data![index];
                 print(sale.sales);
-              //  var obj = List.from(jsonDecode(sale.sales[0]));
-
-                //int temp = sale.sales.length;
-                //temp--;
-                //var product = sale.sales![temp];
-                //print(product);
                 return Column(
                     children: [
                       Center(
@@ -130,7 +123,7 @@ class _SalesViewState extends State<SalesView> {
                             ],
                             dividerColor: Colors.grey,
                             expansionCallback: (panelIndex, isExpanded) {
-                              _expanded = !_expanded;
+                              _expanded =! _expanded;
                               setState(() {});
                             },
                           ),
