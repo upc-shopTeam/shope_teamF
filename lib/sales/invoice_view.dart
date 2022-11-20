@@ -5,6 +5,7 @@ import 'package:shop_team/sales/home.dart';
 import 'package:shop_team/sales/products_view.dart';
 import 'list_sale.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_team/api/product.dart';
 
 class InvoiceView extends StatelessWidget {
   List<Item> list;
@@ -22,18 +23,38 @@ class InvoiceView extends StatelessWidget {
   final date = DateTime.now();
 
   final obj = {};
+  void updateProduct(String id, Product p) async {
+    final obj = {
 
+      "date": p.date,
+      "name": p.name,
+      "unitPrice": p.unitPrice,
+      "description": p.description,
+      "img": p.img,
+      "campus": p.campus,
+      "category": p.category,
+      "initialAmount": p.initialAmount,
+      "currentAmount": p.currentAmount,
+      "purchasePrice": p.purchasePrice
+
+    };
+    final headers = {"Content-Type": "application/json;charset=UTF-8"};
+    final res = await http.put(Uri.parse("https://express-shopapi.herokuapp.com/api/products/$id"),
+        headers: headers, body: jsonEncode(obj));
+
+  }
   void saveInvoice() async {
     for (var i in list) {
       final obj = {
+        "idProduct": i.product.id,
         "nameProduct": i.product.name,
-        "amount": 10,
-        "unitPrice": 2,
-        "subtotal": 20
+        "amount": i.amount,
+        "unitPrice": i.product.unitPrice,
+        "subtotal": i.amount*i.product.unitPrice
       };
       listObj.add(obj);
-      print(listObj);
     }
+
     final invoice = {
       "employee": "636587c61c8ee4c283e55e70",
       "nameCustomer": name,
@@ -43,9 +64,10 @@ class InvoiceView extends StatelessWidget {
       "totalPayment": total,
     };
     final headers = {"Content-Type": "application/json;charset=UTF-8"};
-    final res = await http.post(Uri.parse("http://10.0.2.2:9000/api/invoices/"),
+    final res = await http.post(Uri.parse("https://express-shopapi.herokuapp.com/api/invoices"),
         headers: headers, body: jsonEncode(invoice));
-    print(name);
+
+    print(res);
   }
 
   @override
@@ -203,9 +225,12 @@ class InvoiceView extends StatelessWidget {
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Venta finalizada Correctamente"),));
                           saveInvoice();
+                          for(var i in list){
+                            updateProduct(i.product.id, Product(id: i.product.id, name: i.product.name, unitPrice: i.product.unitPrice, description: i.product.description, img: i.product.img, campus: i.product.campus, category: i.product.category, currentAmount: i.product.currentAmount-i.amount, initialAmount: i.product.initialAmount, date: i.product.date, purchasePrice: i.product.purchasePrice));
+                          }
                           listObj.clear();
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const Home(),
+                            builder: (context) => Home(),
                           ));
                         },
                         icon: const Icon(Icons.check_circle,
@@ -222,4 +247,5 @@ class InvoiceView extends StatelessWidget {
       ),
     );
   }
+
 }
