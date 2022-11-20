@@ -8,6 +8,9 @@ class Product {
   String category;
   int currentAmount;
   int initialAmount;
+  String date;
+  int purchasePrice;
+
 
   Product(
       {required this.id,
@@ -18,7 +21,9 @@ class Product {
       required this.campus,
       required this.category,
       required this.currentAmount,
-      required this.initialAmount});
+      required this.initialAmount,
+      required this.date,
+        required this.purchasePrice});
 
   factory Product.fromJson(Map json) {
     return Product(
@@ -30,6 +35,8 @@ class Product {
         campus: json["campus"],
         category: json["category"],
         currentAmount: json["currentAmount"],
-        initialAmount: json["initialAmount"]);
+        initialAmount: json["initialAmount"],
+        date: json['date'],
+        purchasePrice: json['purchasePrice']);
   }
 }
