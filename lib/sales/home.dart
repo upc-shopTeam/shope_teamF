@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/sales/list_sale.dart';
 import 'package:shop_team/sales/products_view.dart';
+import 'package:shop_team/sales/profile_view.dart';
 import 'sales_view.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -25,13 +26,20 @@ class Home extends StatelessWidget {
         },
         child: Text("Nueva venta"),
       ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => SalesView(),
-            ));
-          },
-          child: Text("Ventas"),),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => SalesView(),
+          ));
+        },
+        child: Text("Ventas"),),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProfileView(),
+          ));
+        },
+        child: Text("Perfil"),),
     ],
     ),),
     );
