@@ -3,8 +3,9 @@ import 'package:shop_team/sales/list_sale.dart';
 import 'package:shop_team/sales/products_view.dart';
 import 'sales_view.dart';
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
+//String dataId;
+//String role;
+Home();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
