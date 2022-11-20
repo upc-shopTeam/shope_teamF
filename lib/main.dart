@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_team/inventory/home_owner_view.dart';
+import 'package:shop_team/inventory/invetory_view.dart';
 import 'sales/home.dart';
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home()
+      routes: {
+        '/inventory':(context) => const InventoryView(),
+
+
+    },
+        home: HomeOwnerView()
+
+//      home: Home()
+
+
     );
   }
 }
