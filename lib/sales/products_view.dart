@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:shop_team/sales/list_sale.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_team/api/Product.dart';
+import 'package:shop_team/api/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_team/sales/detail_view.dart';
 import 'package:shop_team/sales/sale_view.dart';
@@ -29,6 +29,7 @@ class _ProductViewState extends State<ProductView> {
   }
 
 
+
 int numCar = 0;
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ int numCar = 0;
                   ));
                   if(widget.list.isEmpty){
                     setState(() {
+
                       numCar = 0;
                     });
                   }
@@ -70,11 +72,9 @@ int numCar = 0;
                       itemCount: snap.data!.length,
                       itemBuilder: (context, index) {
                         var product = snap.data![index];
-
                         return Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Card(
-
                             child: ListTile(
                               leading:   Image.network(product.img),
                               title: Text(product.name),
