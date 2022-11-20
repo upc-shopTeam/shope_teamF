@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/inventory/home_owner_view.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
+import 'package:shop_team/sign-in/sign-in_view.dart';
+import 'package:shop_team/sign-up/sign-up_view.dart';
 import 'sales/home.dart';
 void main() {
   runApp(const MyApp());
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
 
 
     },
-        home: HomeOwnerView()
+        home: SignInView()
 
 //      home: Home()
 
