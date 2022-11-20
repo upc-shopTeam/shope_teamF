@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/sales/invoice_view.dart';
 
-import '../api/Product.dart';
+import '../api/product.dart';
 import 'list_sale.dart';
 
 class SaleView extends StatefulWidget {
@@ -66,7 +66,7 @@ class _SaleViewState extends State<SaleView> {
                   onDismissed: (DismissDirection direction) {
                     setState(() {
                       items.removeAt(index);
-                      total = 0;
+                     total = 0;
                       for (var i in items) {
                         var a = i.amount * i.product.unitPrice;
                         total += a;

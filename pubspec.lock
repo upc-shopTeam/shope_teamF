@@ -43,6 +43,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+
+  calendar_timeline:
+    dependency: "direct main"
+    description:
+      name: calendar_timeline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
+
   build:
     dependency: transitive
     description:
@@ -331,6 +340,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+
   io:
     dependency: transitive
     description:
@@ -415,6 +425,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
+
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -562,4 +581,5 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.18.2 <3.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=2.12.0"
+

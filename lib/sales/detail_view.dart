@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:shop_team/api/Product.dart';
+import 'package:shop_team/api/product.dart';
 import 'package:shop_team/sales/list_sale.dart';
 import 'package:shop_team/sales/products_view.dart';
 import 'package:shop_team/sales/sale_view.dart';
@@ -109,9 +109,7 @@ class _DetailViewState extends State<DetailView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [TextButton(
                       onPressed: () {
-                        setState(() {
-                           item.add(Item(amount: _cont,product: widget.p));
-                        });
+                            item.add(Item(amount: _cont,product: widget.p));
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductView(list: item),
                         ));
