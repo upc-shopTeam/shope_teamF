@@ -29,7 +29,7 @@ class _EditViewState extends State<EditView> {
         "unitPrice": p.unitPrice,
         "description": p.description,
         "img": p.img,
-        "campus": p.campus,
+        "owner": p.owner,
         "category": p.category,
         "initialAmount": p.initialAmount,
         "currentAmount": p.currentAmount,
@@ -104,7 +104,7 @@ class _EditViewState extends State<EditView> {
               ),
               ElevatedButton(onPressed: (){
                 setState(() {
-                  final p = Product(id: widget.product.id, name: txtName.text, unitPrice: int.parse(txtPrecioVenta.text), description: widget.product.description, img: widget.product.img, campus: widget.product.campus, category: widget.product.category, currentAmount: int.parse(txtCantidadActual.text), initialAmount: int.parse(txtCantidadInicial.text), date: widget.product.date, purchasePrice: int.parse(txtPrecioCompra.text));
+                  final p = Product(id: widget.product.id, name: txtName.text, unitPrice: int.parse(txtPrecioVenta.text), description: widget.product.description, img: widget.product.img, owner: widget.product.owner, category: widget.product.category, currentAmount: int.parse(txtCantidadActual.text), initialAmount: int.parse(txtCantidadInicial.text), date: widget.product.date, purchasePrice: int.parse(txtPrecioCompra.text));
                   print(p);
                   editProduct(widget.product.id,p);
 
