@@ -68,7 +68,7 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileOwner()));
                 },
                 icon:Icon(Icons.person),
-                label: Text("Hola: $name"),
+                label: Text("Hola, $name"),
               ),
               GridView.count(
                 shrinkWrap: true,

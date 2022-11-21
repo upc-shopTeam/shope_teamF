@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileEmployeeView(id : employeeId)));
               },
               icon:Icon(Icons.person),
-              label: Text("Hola: $name"),
+              label: Text("Hola, $name"),
             ),
             GridView.count(
               shrinkWrap: true,
