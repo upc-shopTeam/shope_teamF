@@ -35,7 +35,7 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
 
     if(val!=null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
-      final user = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${payload["dataId"]}"));
+      final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${payload["dataId"]}"));
       objOwner = jsonDecode(user.body);
     }
 

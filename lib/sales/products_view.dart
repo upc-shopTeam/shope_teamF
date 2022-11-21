@@ -118,7 +118,7 @@ int numCar = 0;
     var objEmployee = {};
     if(val!=null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
-      final user = await http.get(Uri.parse("http://10.0.2.2:9000/api/employee/${payload["dataId"]}"));
+      final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${payload["dataId"]}"));
        objEmployee = jsonDecode(user.body);
     }
 

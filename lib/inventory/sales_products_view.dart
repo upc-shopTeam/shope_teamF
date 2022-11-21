@@ -172,7 +172,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
 
     }
 
-    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${idOwner}/products")); //text
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${idOwner}/products")); //text
 
     final list = List.from(jsonDecode(res.body));
     List<Product> products = [];

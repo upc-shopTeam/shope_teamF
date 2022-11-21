@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../sign-in/sign-in_view.dart';
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key}) : super(key: key);
 
@@ -29,22 +29,24 @@ class _SignUpViewState extends State<SignUpView> {
     String email ='';
     String password ='';
     String confirmPassword = '';
+    DateTime date = DateTime.now();
 
     void register() async {
-      final invoice = {
+      final user = {
         "name": name,
         "dni": DNI,
         "phoneNumber": phoneNumber,
         "nameShop": nameShop,
         "photo": photo,
         "email": email,
-        "password": password
+        "password": password,
+        "registerDate": date.toString()
       };
 
       final headers = {"Content-Type": "application/json;charset=UTF-8"};
 
-      final res = await http.post(Uri.parse("http://10.0.2.2:9000/api/owner/sign-up"),
-          headers: headers, body: jsonEncode(invoice));
+      final res = await http.post(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/sign-up"),
+          headers: headers, body: jsonEncode(user));
       print(res);
 
     }
@@ -136,7 +138,7 @@ class _SignUpViewState extends State<SignUpView> {
                           password=txtPassword.text;
                         });
                         register();
-
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
 
                       },
                       child: Text('Registrarse'))

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shop_team/inventory/home_owner_view.dart';
+import 'package:shop_team/sign-up/sign-up_view.dart';
 
 import '../sales/home.dart';
 
@@ -71,7 +72,7 @@ void checkLogin() async{
         "email": txtEmail.text,
         "password": txtPassword.text
       };
-      final res = await http.post(Uri.parse("http://10.0.2.2:9000/api/auth/sign-in"),
+      final res = await http.post(Uri.parse("https://express-shopapi.herokuapp.com/api/auth/sign-in"),
           headers: headers, body: jsonEncode(data));
       if(res.statusCode==200){
         final body = jsonDecode(res.body);
@@ -140,7 +141,10 @@ void checkLogin() async{
                           ),
                         ),
                           TextButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.push(
+                                    context,MaterialPageRoute(builder: (context) => SignUpView()));
+                              },
                               child: Text('Regístrate',style: TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold

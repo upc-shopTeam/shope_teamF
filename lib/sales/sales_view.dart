@@ -159,7 +159,7 @@ class _SalesViewState extends State<SalesView> {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idEmployee=payload["dataId"];
     }
-    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/employee/${idEmployee}/invoices"));
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${idEmployee}/invoices"));
 
     final list = List.from(jsonDecode(res.body));
 
