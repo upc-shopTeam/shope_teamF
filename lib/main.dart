@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/inventory/home_owner_view.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
+
 import 'package:shop_team/sign-in/sign-in_view.dart';
 import 'package:shop_team/sign-up/sign-up_view.dart';
+
+import 'package:shop_team/login/inject_dependencies.dart';
+import 'my_app.dart';
 import 'sales/home.dart';
-void main() {
-  runApp(const MyApp());
-}
+import 'package:firebase_core/firebase_core.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,6 +33,13 @@ class MyApp extends StatelessWidget {
 
     );
   }
-}
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  injectDependecies();
+  runApp(
+      const MyApp()
+  );
+}
 
