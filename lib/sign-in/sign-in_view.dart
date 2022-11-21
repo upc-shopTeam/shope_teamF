@@ -30,22 +30,7 @@ String userInfo = '';
     checkLogin();
     super.initState();
   }
-  /*
-  Object login() async {
-    final data = {
-      "email": email,
-      "password": password
-    };
 
-    final headers = {"Content-Type": "application/json;charset=UTF-8"};
-
-    final res = await http.post(Uri.parse("http://10.0.2.2:9000/api/auth/sign-in"),
-        headers: headers, body: jsonEncode(data));
-
-    userInfo = res.body;
-    return res.body;
-
-  }*/
 void checkLogin() async{
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? val = preferences.getString("token");
@@ -58,7 +43,7 @@ void checkLogin() async{
     }
     if(payload["role"]=='employee'){
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context)=>Home()),
+          MaterialPageRoute(builder: (context)=>HomeView()),
               (route) => false);
     }
 
@@ -108,7 +93,7 @@ void checkLogin() async{
     }
     if(payload["role"] == 'employee'){
       Navigator.push(
-          context,MaterialPageRoute(builder: (context) => Home()));
+          context,MaterialPageRoute(builder: (context) => HomeView()));
     }
     }
 
@@ -192,15 +177,12 @@ void checkLogin() async{
                         //login();
                        print(userInfo);
                         var obj = jsonDecode(userInfo);
-
                         role = obj["user"]["role"];
                         dataId = obj["user"]["dataId"];
                         if(role == 'owner'){
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => HomeOwnerView(role: role, dataId: dataId),
-
                           ));
-
                         }
                         if (role == 'employee'){
                           Navigator.of(context).push(MaterialPageRoute(

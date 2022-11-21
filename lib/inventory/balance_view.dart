@@ -46,7 +46,7 @@ class _BalanceViewState extends State<BalanceView> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    'Calendar',
+                    'Calendario',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
@@ -66,14 +66,14 @@ class _BalanceViewState extends State<BalanceView> {
 
                   }),
                   leftMargin: 20,
-                  monthColor: Colors.white70,
+                  monthColor: Colors.white,
                   dayColor: Colors.white,
                   dayNameColor: Colors.black,
                   activeDayColor: Colors.white,
                   activeBackgroundDayColor: Colors.orange,
                   dotsColor: Color(0xFF333A47),
                   selectableDayPredicate: (date) => date.day != 0,
-                  locale: 'en',
+                  locale: 'es',
                 ),
                 SizedBox(height: 20),
                 Padding(

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/inventory/balance_view.dart';
+import 'package:shop_team/inventory/employee_register.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
+import 'package:shop_team/inventory/profile_owner.dart';
 import 'package:shop_team/inventory/sales_products_view.dart';
 import 'package:shop_team/sign-in/sign-in_view.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +21,8 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
 
   String token = '';
   DateTime initDate= DateTime.now();
+  String name = '';
+String nameShop = '';
 
 
 
@@ -32,10 +36,10 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var objOwner = {};
-
     if(val!=null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${payload["dataId"]}"));
+
       objOwner = jsonDecode(user.body);
     }
 
@@ -43,9 +47,13 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
     setState((){
       token = preferences.getString("token")!;
       initDate = DateTime.parse(objOwner["registerDate"]);
+      name = objOwner["name"];
+      nameShop = objOwner["nameShop"];
     });
     print(initDate);
     print(token);
+    print(name);
+    print(nameShop);
 
   }
 
@@ -58,6 +66,19 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
         child:SingleChildScrollView(
           child: Column(
             children: [
+              OutlinedButton.icon(
+                onPressed: ()  {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileOwner()));
+                },
+                icon:Icon(Icons.person),
+                label: Text("Hola, $name"),
+              ),
+              OutlinedButton.icon(
+                onPressed: ()  {
+                },
+                icon:Icon(Icons.shop),
+                label: Text("TIENDA: $nameShop"),
+              ),
               GridView.count(
                 shrinkWrap: true,
                 primary: false,
@@ -88,6 +109,13 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
                       ));
                     },
                     child: Text("Balance"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EmployeeRegister(),
+                      ));
+                    },
+                    child: Text("Agregar Trabajador"),),
                 ],
               ),
               OutlinedButton.icon(
@@ -105,6 +133,4 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
     );
   }
 }
-
-
 
