@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/api/sale.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:calendar_timeline/calendar_timeline.dart';
 class BalanceView extends StatefulWidget {
-  const BalanceView({Key? key}) : super(key: key);
+  DateTime initDate;
+  BalanceView({required this.initDate});
 
   @override
   State<BalanceView> createState() => _BalanceViewState();
@@ -17,7 +20,6 @@ class _BalanceViewState extends State<BalanceView> {
 
   static late Future<List<Sale>> sales;
 
-  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/invoices/");
 
   @override
   void initState() {
@@ -44,7 +46,7 @@ class _BalanceViewState extends State<BalanceView> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    'Calendar Timeline',
+                    'Calendar',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
@@ -54,13 +56,12 @@ class _BalanceViewState extends State<BalanceView> {
                 CalendarTimeline(
                   showYears: true,
                   initialDate: _selectedDate,
-                  firstDate: DateTime.now(),
+                  firstDate: widget.initDate,
                   lastDate: DateTime.now().add(Duration(days: 365 * 4)),
                   onDateSelected: (date) => setState(() {
                     //a = suma;
                     a = suma;
                     suma = 0;
-                    print(a);
                     _selectedDate = date;
 
                   }),
@@ -71,7 +72,7 @@ class _BalanceViewState extends State<BalanceView> {
                   activeDayColor: Colors.white,
                   activeBackgroundDayColor: Colors.orange,
                   dotsColor: Color(0xFF333A47),
-                  selectableDayPredicate: (date) => date.day != 23,
+                  selectableDayPredicate: (date) => date.day != 0,
                   locale: 'en',
                 ),
                 SizedBox(height: 20),
@@ -203,7 +204,16 @@ class _BalanceViewState extends State<BalanceView> {
   }
 
   Future<List<Sale>> getSales() async{
-    final res = await http.get(url); //text
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var idOwner = '';
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      idOwner=payload["dataId"];
+    }
+    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${idOwner}/invoices"));
+    //text
     final list = List.from(jsonDecode(res.body));
     List<Sale> sales = [];
     list.forEach((element) {
