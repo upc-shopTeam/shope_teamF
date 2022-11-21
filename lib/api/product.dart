@@ -4,7 +4,7 @@ class Product {
   int unitPrice;
   String description;
   String img;
-  String campus;
+  String owner;
   String category;
   int currentAmount;
   int initialAmount;
@@ -18,7 +18,7 @@ class Product {
       required this.unitPrice,
       required this.description,
       required this.img,
-      required this.campus,
+      required this.owner,
       required this.category,
       required this.currentAmount,
       required this.initialAmount,
@@ -32,7 +32,7 @@ class Product {
         unitPrice: json["unitPrice"],
         description: json["description"],
         img: json["img"],
-        campus: json["campus"],
+        owner: json["owner"],
         category: json["category"],
         currentAmount: json["currentAmount"],
         initialAmount: json["initialAmount"],
