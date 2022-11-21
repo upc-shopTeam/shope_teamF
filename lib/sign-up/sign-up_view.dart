@@ -138,6 +138,10 @@ class _SignUpViewState extends State<SignUpView> {
                           password=txtPassword.text;
                         });
                         register();
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(
+                            content:
+                            Text("Registrado")));
                         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
 
                       },

@@ -21,6 +21,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   String employeeId = '';
   String name = '';
+  String nameShop = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -32,16 +33,17 @@ class _HomeViewState extends State<HomeView> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var id = '';
-    var objOwner = {};
+    var objEmployee = {};
     if (val != null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       id = payload["dataId"];
       final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${payload["dataId"]}"));
-      objOwner = jsonDecode(user.body);
+      objEmployee = jsonDecode(user.body);
     }
     setState(() {
-      name = objOwner["name"];
+      name = objEmployee["name"];
       employeeId = id;
+
     });
     print(name);
   }
@@ -59,6 +61,7 @@ class _HomeViewState extends State<HomeView> {
               icon:Icon(Icons.person),
               label: Text("Hola, $name"),
             ),
+
             GridView.count(
               shrinkWrap: true,
 

@@ -22,7 +22,7 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
   String token = '';
   DateTime initDate= DateTime.now();
   String name = '';
-
+String nameShop = '';
 
 
 
@@ -48,10 +48,12 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
       token = preferences.getString("token")!;
       initDate = DateTime.parse(objOwner["registerDate"]);
       name = objOwner["name"];
+      nameShop = objOwner["nameShop"];
     });
     print(initDate);
     print(token);
     print(name);
+    print(nameShop);
 
   }
 
@@ -70,6 +72,12 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
                 },
                 icon:Icon(Icons.person),
                 label: Text("Hola, $name"),
+              ),
+              OutlinedButton.icon(
+                onPressed: ()  {
+                },
+                icon:Icon(Icons.shop),
+                label: Text("TIENDA: $nameShop"),
               ),
               GridView.count(
                 shrinkWrap: true,
