@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/api/product.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,7 +16,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
   late int totalVendido;
   late int totalInvertido;
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
-  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
+  //final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
 
 @override
   void initState() {
@@ -122,7 +124,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
                                             Text('Cant. Vendida:  ${product.initialAmount-product.currentAmount} u'),
-                                            Text('Precio de Venta:  ${product.unitPrice} u'),
+                                            Text('Precio de Venta:  S/${product.unitPrice}'),
                                             Text('Total:  S/${(product.initialAmount-product.currentAmount)*product.unitPrice}')
                                           ],
                                         ),
@@ -130,7 +132,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
                                             Text('Cant. Comprada:  ${product.initialAmount} u'),
-                                            Text('Precio de Compra:  ${product.purchasePrice} u'),
+                                            Text('Precio de Compra:  S/${product.purchasePrice}'),
                                             Text('Total:  S/${product.initialAmount*product.purchasePrice}')
                                           ],
                                         )
@@ -161,7 +163,17 @@ class _SalesProductsViewState extends State<SalesProductsView> {
 
   }
   Future<List<Product>> getProducts() async {
-    final res = await http.get(url); //text
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var idOwner = '';
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      idOwner = payload["dataId"];
+
+    }
+
+    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${idOwner}/products")); //text
+
     final list = List.from(jsonDecode(res.body));
     List<Product> products = [];
     for (var element in list) {
