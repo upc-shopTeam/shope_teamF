@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/api/sale.dart';
 
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _InventoryViewState extends State<InventoryView> {
   static late Future<List<Sale>> sales;
 
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
-  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
+  //final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
 
 
   @override
@@ -94,7 +96,15 @@ class _InventoryViewState extends State<InventoryView> {
   }
 
   Future<List<Product>> getProducts() async {
-    final res = await http.get(url); //text
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var idOwner = '';
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      idOwner = payload["dataId"];
+    }
+    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${idOwner}/products")); //text
+
     final list = List.from(jsonDecode(res.body));
     List<Product> products = [];
     for (var element in list) {
