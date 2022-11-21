@@ -177,15 +177,12 @@ void checkLogin() async{
                         //login();
                        print(userInfo);
                         var obj = jsonDecode(userInfo);
-
                         role = obj["user"]["role"];
                         dataId = obj["user"]["dataId"];
                         if(role == 'owner'){
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => HomeOwnerView(role: role, dataId: dataId),
-
                           ));
-
                         }
                         if (role == 'employee'){
                           Navigator.of(context).push(MaterialPageRoute(

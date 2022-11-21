@@ -212,7 +212,6 @@ class _BalanceViewState extends State<BalanceView> {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idOwner=payload["dataId"];
     }
-    print(idOwner);
     final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${idOwner}/invoices"));
     //text
     final list = List.from(jsonDecode(res.body));
