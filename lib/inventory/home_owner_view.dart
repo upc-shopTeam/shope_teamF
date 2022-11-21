@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/inventory/balance_view.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
 import 'package:shop_team/inventory/sales_products_view.dart';
 import 'package:shop_team/sign-in/sign-in_view.dart';
-
+import 'package:http/http.dart' as http;
 class HomeOwnerView extends StatefulWidget {
   const HomeOwnerView({Key? key}) : super(key: key);
 
@@ -15,6 +18,8 @@ class HomeOwnerView extends StatefulWidget {
 class _HomeOwnerViewState extends State<HomeOwnerView> {
 
   String token = '';
+  DateTime initDate= DateTime.now();
+
 
 
   @override
@@ -25,9 +30,21 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
   }
   void getCred() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var objOwner = {};
+
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      final user = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${payload["dataId"]}"));
+      objOwner = jsonDecode(user.body);
+    }
+
+
     setState((){
       token = preferences.getString("token")!;
+      initDate = DateTime.parse(objOwner["registerDate"]);
     });
+    print(initDate);
     print(token);
 
   }
@@ -67,7 +84,7 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BalanceView(),
+                        builder: (context) => BalanceView(initDate:initDate,),
                       ));
                     },
                     child: Text("Balance"),),
