@@ -211,9 +211,8 @@ class InvoiceView extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Venta cancelada"),));
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductView(list: []),
-                          ));
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>HomeView()), (route) => false);
+
                         },
                         icon: const Icon(Icons.cancel,
                         size: 50,

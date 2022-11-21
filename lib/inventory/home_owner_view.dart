@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/inventory/balance_view.dart';
+import 'package:shop_team/inventory/employee_register.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
 import 'package:shop_team/inventory/profile_owner.dart';
 import 'package:shop_team/inventory/sales_products_view.dart';
@@ -100,6 +101,13 @@ class _HomeOwnerViewState extends State<HomeOwnerView> {
                       ));
                     },
                     child: Text("Balance"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EmployeeRegister(),
+                      ));
+                    },
+                    child: Text("Agregar Trabajador"),),
                 ],
               ),
               OutlinedButton.icon(

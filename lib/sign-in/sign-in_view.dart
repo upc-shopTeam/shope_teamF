@@ -30,22 +30,7 @@ String userInfo = '';
     checkLogin();
     super.initState();
   }
-  /*
-  Object login() async {
-    final data = {
-      "email": email,
-      "password": password
-    };
 
-    final headers = {"Content-Type": "application/json;charset=UTF-8"};
-
-    final res = await http.post(Uri.parse("http://10.0.2.2:9000/api/auth/sign-in"),
-        headers: headers, body: jsonEncode(data));
-
-    userInfo = res.body;
-    return res.body;
-
-  }*/
 void checkLogin() async{
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? val = preferences.getString("token");
