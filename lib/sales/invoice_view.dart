@@ -31,7 +31,7 @@ class InvoiceView extends StatelessWidget {
       "unitPrice": p.unitPrice,
       "description": p.description,
       "img": p.img,
-      "campus": p.campus,
+      "owner": p.owner,
       "category": p.category,
       "initialAmount": p.initialAmount,
       "currentAmount": p.currentAmount,
@@ -226,7 +226,7 @@ class InvoiceView extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Venta finalizada Correctamente"),));
                           saveInvoice();
                           for(var i in list){
-                            updateProduct(i.product.id, Product(id: i.product.id, name: i.product.name, unitPrice: i.product.unitPrice, description: i.product.description, img: i.product.img, campus: i.product.campus, category: i.product.category, currentAmount: i.product.currentAmount-i.amount, initialAmount: i.product.initialAmount, date: i.product.date, purchasePrice: i.product.purchasePrice));
+                            updateProduct(i.product.id, Product(id: i.product.id, name: i.product.name, unitPrice: i.product.unitPrice, description: i.product.description, img: i.product.img, owner: i.product.owner, category: i.product.category, currentAmount: i.product.currentAmount-i.amount, initialAmount: i.product.initialAmount, date: i.product.date, purchasePrice: i.product.purchasePrice));
                           }
                           listObj.clear();
                           Navigator.of(context).push(MaterialPageRoute(
