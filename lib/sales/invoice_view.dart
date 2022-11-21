@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shop_team/sales/home.dart';
+import 'home.dart';
 import 'package:shop_team/sales/products_view.dart';
 import 'list_sale.dart';
 import 'package:http/http.dart' as http;
@@ -230,7 +230,7 @@ class InvoiceView extends StatelessWidget {
                           }
                           listObj.clear();
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Home(),
+                            builder: (context) => HomeView(),
                           ));
                         },
                         icon: const Icon(Icons.check_circle,

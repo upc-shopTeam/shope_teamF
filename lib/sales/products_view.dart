@@ -126,7 +126,7 @@ int numCar = 0;
 
 
     print(objEmployee["owner"]);
-    final res = await http.get(Uri.parse("http://10.0.2.2:9000/api/owner/${objEmployee["owner"]}/products")); //text
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${objEmployee["owner"]}/products")); //text
     final list = List.from(jsonDecode(res.body));
      List<Product> products = [];
     list.forEach((element) {

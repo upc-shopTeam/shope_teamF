@@ -58,7 +58,7 @@ void checkLogin() async{
     }
     if(payload["role"]=='employee'){
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context)=>Home()),
+          MaterialPageRoute(builder: (context)=>HomeView()),
               (route) => false);
     }
 
@@ -108,7 +108,7 @@ void checkLogin() async{
     }
     if(payload["role"] == 'employee'){
       Navigator.push(
-          context,MaterialPageRoute(builder: (context) => Home()));
+          context,MaterialPageRoute(builder: (context) => HomeView()));
     }
     }
 
