@@ -24,7 +24,18 @@ class _InventoryViewState extends State<InventoryView> {
   static late Future<List<Sale>> sales;
 
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
-  //final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
+  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
+
+  final name = TextEditingController();
+  final unitPrice = TextEditingController();
+  final description = TextEditingController();
+  final img = TextEditingController();
+  final category = TextEditingController();
+  final initialAmount = TextEditingController();
+  final currentAmount = TextEditingController();
+  final purchasePrice = TextEditingController();
+  final date = DateTime.now();
+  final owner = TextEditingController();
 
 
   @override
@@ -91,6 +102,13 @@ class _InventoryViewState extends State<InventoryView> {
               }
               return const Center(child: CircularProgressIndicator());
             }),
+
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+            showForm();
+        },
+        child: const Icon(Icons.add),
       ),
     ) ;
   }
@@ -116,7 +134,106 @@ class _InventoryViewState extends State<InventoryView> {
 
     return products;
   }
+  void showForm() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Agregar Usuario"),
 
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: name,
+                    decoration: const InputDecoration(hintText: "Nombre"),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: description,
+                    decoration: const InputDecoration(hintText: "Descricion"),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: img,
+                    decoration: const InputDecoration(hintText: "Imagen"),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: initialAmount,
+                    decoration: const InputDecoration(hintText: "Cantidad de productos"),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: purchasePrice,
+                    decoration: const InputDecoration(hintText: "Precio de compra"),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: unitPrice,
+                    decoration: const InputDecoration(hintText: "Precio de venta"),
+                  )
+                ],
+
+
+          ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Cancelar"),
+              ),
+              TextButton(
+                onPressed: () {
+                  createProduct();
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Guardar"),
+              )
+            ],
+          );
+        });
+  }
+
+  void createProduct () async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var idOwner = '';
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      idOwner = payload["dataId"];
+
+    }
+
+    final product = {
+      "name": name.text,
+      "unitPrice": unitPrice.text,
+      "description": description.text,
+      "img": img.text,
+      "owner": idOwner,
+      "category": '6359c736b688f87b9f9987ba',
+      "currentAmount": int.parse(initialAmount.text),
+      "initialAmount": int.parse(initialAmount.text),
+      "date": date.toString(),
+      "purchasePrice": int.parse(purchasePrice.text)
+    };
+   final res = await http.post(url, headers: headers, body: jsonEncode(product));
+    print(res.body);
+    name.clear();
+    description.clear();
+    unitPrice.clear();
+    img.clear();
+    initialAmount.clear();
+    currentAmount.clear();
+    purchasePrice.clear();
+
+    setState(() {
+      products = getProducts();
+    });
+  }
 
 
 
