@@ -62,7 +62,7 @@ String nameShop = '';
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text("HOME"),
+        title: Text("DUEÑO"),
         backgroundColor: Colors.green[600],
       ),
       backgroundColor: Colors.green[100],
