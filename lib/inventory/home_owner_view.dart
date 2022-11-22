@@ -61,73 +61,218 @@ String nameShop = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: new AppBar(
+        title: Text("HOME"),
+        backgroundColor: Colors.green[600],
+      ),
+      backgroundColor: Colors.green[100],
       body: SafeArea(
+
         child:SingleChildScrollView(
-          child: Column(
-            children: [
-              OutlinedButton.icon(
-                onPressed: ()  {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileOwner()));
-                },
-                icon:Icon(Icons.person),
-                label: Text("Hola, $name"),
-              ),
-              OutlinedButton.icon(
-                onPressed: ()  {
-                },
-                icon:Icon(Icons.shop),
-                label: Text("TIENDA: $nameShop"),
-              ),
-              GridView.count(
-                shrinkWrap: true,
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => InventoryView(),
-                      ));
-                    },
-                    child: Text("Inventario"),
+
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+
+
+              children: [
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white70,
+
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SalesProductsView(),
-                      ));
-                    },
-                    child: Text("Ventas por producto"),),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BalanceView(initDate:initDate,),
-                      ));
-                    },
-                    child: Text("Balance"),),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EmployeeRegister(),
-                      ));
-                    },
-                    child: Text("Agregar Trabajador"),),
-                ],
-              ),
-              OutlinedButton.icon(
-                  onPressed: () async {
-                      SharedPreferences preferences = await SharedPreferences.getInstance();
-                      await preferences.clear();
-                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
+                  onPressed: ()  {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileOwner()));
                   },
-                  icon:Icon(Icons.login),
-                  label: Text("Logout"),
-              )
-            ],
+                  icon:Icon(Icons.person,
+                  color: Colors.black,
+                  ),
+                  label: Text("Hola, $name",
+                    style: TextStyle(
+                        color: Colors.black,
+                   ),
+                ),
+                ),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white70,
+
+                  ),
+
+                  onPressed: ()  {
+                  },
+                  icon:Icon(Icons.shop,
+                    color: Colors.black,
+                  ),
+                  label: Text("TIENDA: $nameShop",style: TextStyle(
+                    color: Colors.black
+                  ),),
+                ),
+                GridView.count(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  children: <Widget>[
+                    ElevatedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.white,
+
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => InventoryView(),
+                        ));
+                      },
+
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(21.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children:
+                              <Widget>[
+                                Icon(Icons.inventory_rounded,
+                                    size:70.0,
+                                   color: Colors.black,
+                                ),
+                                Text("Inventario",
+
+                                style: new TextStyle(
+                                    fontSize: 17.0,
+                                  color: Colors.black
+
+                                ),
+                                ),
+                              ],
+                          ),
+                        ),
+                      ),
+
+                    ),
+                    ElevatedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.white,
+
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SalesProductsView(),
+                        ));
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(21.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children:
+                            <Widget>[
+                              Icon(Icons.wine_bar,
+                                size:70.0,
+                                color: Colors.deepOrangeAccent,
+                              ),
+                              Text("Ventas por producto",
+                                style: new TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+                    ),
+                    ElevatedButton(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+
+                        ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BalanceView(initDate:initDate,),
+                        ));
+                      },
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(21.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children:
+                              <Widget>[
+                                Icon(Icons.monetization_on,
+                                  size:70.0,
+                                  color: Colors.lightGreen,
+                                ),
+                                Text("Balance",
+                                  style: new TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+
+
+                    ),
+                    ElevatedButton(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+
+                        ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => EmployeeRegister(),
+                        ));
+                      },
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(21.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children:
+                              <Widget>[
+                                Icon(Icons.emoji_people_rounded,
+                                  size:70.0,
+                                  color: Colors.brown,
+                                ),
+                                Text("Agregar Trabajador",
+                                  style: new TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+
+                    ),
+                  ],
+                ),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white70,
+
+                  ),
+                    onPressed: () async {
+                        SharedPreferences preferences = await SharedPreferences.getInstance();
+                        await preferences.clear();
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
+                    },
+                    icon:Icon(Icons.login,
+                    color: Colors.black,),
+                    label: Text("Logout",style: TextStyle(
+                      color: Colors.black
+                    ),),
+                )
+              ],
+            ),
           ),
         ),),
     );
