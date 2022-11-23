@@ -10,6 +10,8 @@ import 'package:shop_team/inventory/profile_owner.dart';
 import 'package:shop_team/inventory/sales_products_view.dart';
 import 'package:shop_team/sign-in/sign-in_view.dart';
 import 'package:http/http.dart' as http;
+
+import 'employee_view.dart';
 class HomeOwnerView extends StatefulWidget {
   const HomeOwnerView({Key? key}) : super(key: key);
 
@@ -112,10 +114,17 @@ String nameShop = '';
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EmployeeRegister(),
+                        builder: (context) => EmployeeView(),
                       ));
                     },
                     child: Text("Agregar Trabajador"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EmployeeView(),
+                      ));
+                    },
+                    child: Text("Trabajadores"),),
                 ],
               ),
               OutlinedButton.icon(

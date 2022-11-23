@@ -13,8 +13,6 @@ class InventoryView extends StatefulWidget {
 
   @override
   State<InventoryView> createState() => _InventoryViewState();
-
-
 }
 
 int totalVendido = 0;
@@ -41,10 +39,10 @@ class _InventoryViewState extends State<InventoryView> {
   @override
   void initState() {
     // TODO: implement initState
-        products = getProducts();
-       // sales = getSales();
+    products = getProducts();
+    // sales = getSales();
 
-        totalVendido = 0;
+    totalVendido = 0;
     super.initState();
   }
 
@@ -58,42 +56,53 @@ class _InventoryViewState extends State<InventoryView> {
         child: FutureBuilder<List<Product>>(
             future: products,
             builder: (context, snap) {
-
               if (snap.hasData) {
-
                 return ListView.builder(
 
                     itemCount: snap.data!.length,
                     itemBuilder: (context, index) {
-
                       var product = snap.data![index];
-                      var icon = const Icon(Icons.sentiment_very_satisfied_rounded,size: 30,);
-                      if(product.currentAmount>product.initialAmount*50/100){
-                        icon =  const Icon(Icons.sentiment_very_satisfied_rounded,size: 30,color: Colors.green,);
+                      var icon = const Icon(
+                        Icons.sentiment_very_satisfied_rounded, size: 30,);
+                      if (product.currentAmount >
+                          product.initialAmount * 50 / 100) {
+                        icon = const Icon(
+                          Icons.sentiment_very_satisfied_rounded, size: 30,
+                          color: Colors.green,);
                       }
-                      else if(product.currentAmount<product.initialAmount*50/100&&product.currentAmount>product.initialAmount*25/100){
-                        icon = const Icon(Icons.sentiment_neutral_rounded  ,size: 30,color: Colors.orange,);
+                      else if (product.currentAmount <
+                          product.initialAmount * 50 / 100 &&
+                          product.currentAmount >
+                              product.initialAmount * 25 / 100) {
+                        icon = const Icon(
+                          Icons.sentiment_neutral_rounded, size: 30,
+                          color: Colors.orange,);
                       }
-                      else if(product.currentAmount<product.initialAmount*25/100){
-                        icon = const Icon(Icons.sentiment_dissatisfied_rounded ,size: 30,color: Colors.red,);
+                      else if (product.currentAmount <
+                          product.initialAmount * 25 / 100) {
+                        icon = const Icon(
+                          Icons.sentiment_dissatisfied_rounded, size: 30,
+                          color: Colors.red,);
                       }
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Card(
                           child: ListTile(
                             leading: icon,
-                            title: Text('${product.name}',style: TextStyle(fontWeight: FontWeight.bold),),
-                            trailing: Text("Stock: ${product.currentAmount.toString()} und. \nPrecio: S/${product.unitPrice.toString()} "),
-                            onTap: (){
-
+                            title: Text('${product.name}',
+                              style: TextStyle(fontWeight: FontWeight.bold),),
+                            trailing: Text("Stock: ${product.currentAmount
+                                .toString()} und. \nPrecio: S/${product
+                                .unitPrice.toString()} "),
+                            onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProductDetailView(p: product),
+                                builder: (context) =>
+                                    ProductDetailView(p: product),
                               ));
                             },
                           ),
                         ),
                       );
-
                     });
               } else if (snap.hasError) {
                 return Center(
@@ -105,23 +114,24 @@ class _InventoryViewState extends State<InventoryView> {
 
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-            showForm();
+        onPressed: () {
+          showForm();
         },
         child: const Icon(Icons.add),
       ),
-    ) ;
+    );
   }
 
   Future<List<Product>> getProducts() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var idOwner = '';
-    if(val!=null) {
+    if (val != null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idOwner = payload["dataId"];
     }
-    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${idOwner}/products")); //text
+    final res = await http.get(Uri.parse(
+        "https://express-shopapi.herokuapp.com/api/owner/${idOwner}/products")); //text
 
     final list = List.from(jsonDecode(res.body));
     List<Product> products = [];
@@ -134,6 +144,7 @@ class _InventoryViewState extends State<InventoryView> {
 
     return products;
   }
+
   void showForm() {
     showDialog(
         context: context,
@@ -162,22 +173,25 @@ class _InventoryViewState extends State<InventoryView> {
                   TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: initialAmount,
-                    decoration: const InputDecoration(hintText: "Cantidad de productos"),
+                    decoration: const InputDecoration(
+                        hintText: "Cantidad de productos"),
                   ),
                   TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: purchasePrice,
-                    decoration: const InputDecoration(hintText: "Precio de compra"),
+                    decoration: const InputDecoration(
+                        hintText: "Precio de compra"),
                   ),
                   TextField(
                     keyboardType: TextInputType.emailAddress,
                     controller: unitPrice,
-                    decoration: const InputDecoration(hintText: "Precio de venta"),
+                    decoration: const InputDecoration(
+                        hintText: "Precio de venta"),
                   )
                 ],
 
 
-          ),
+              ),
             ),
             actions: [
               TextButton(
@@ -198,14 +212,13 @@ class _InventoryViewState extends State<InventoryView> {
         });
   }
 
-  void createProduct () async {
+  void createProduct() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var idOwner = '';
-    if(val!=null) {
+    if (val != null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idOwner = payload["dataId"];
-
     }
 
     final product = {
@@ -220,7 +233,8 @@ class _InventoryViewState extends State<InventoryView> {
       "date": date.toString(),
       "purchasePrice": int.parse(purchasePrice.text)
     };
-   final res = await http.post(url, headers: headers, body: jsonEncode(product));
+    final res = await http.post(
+        url, headers: headers, body: jsonEncode(product));
     print(res.body);
     name.clear();
     description.clear();
@@ -234,10 +248,6 @@ class _InventoryViewState extends State<InventoryView> {
       products = getProducts();
     });
   }
-
-
-
-
 }
 
 
