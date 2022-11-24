@@ -6,7 +6,7 @@ class Employee {
   String photo;
   String email;
   String password;
-  DateTime hireDate = DateTime.now();
+  String hireDate;
 
   Employee(
       {required this.id,
@@ -22,11 +22,11 @@ class Employee {
     return Employee(
         id: json["_id"],
         name: json["name"],
-        DNI: json["DNI"],
+        DNI: json["dni"],
         phoneNumber: json["phoneNumber"],
         photo: json["photo"],
         email: json["email"],
         password: json["password"],
-        hireDate: DateTime.parse(json["hireDate"]));
+        hireDate: json["hireDate"]);
   }
 }
