@@ -34,16 +34,20 @@ class _HomeViewState extends State<HomeView> {
     String? val = preferences.getString("token");
     var id = '';
     var objEmployee = {};
+    var objOwner = {};
     if (val != null) {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       id = payload["dataId"];
       final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${payload["dataId"]}"));
       objEmployee = jsonDecode(user.body);
+      final owner = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${objEmployee["owner"]}"));
+      objOwner = jsonDecode(owner.body);
+
     }
     setState(() {
       name = objEmployee["name"];
       employeeId = id;
-
+      nameShop = objOwner["nameShop"];
     });
     print(name);
   }
@@ -51,7 +55,8 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text("TRABAJADOR"),
+        title: Text("$nameShop"),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.green[600],
       ),
       backgroundColor: Colors.green[100],
@@ -103,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                           mainAxisSize: MainAxisSize.min,
                           children:
                           <Widget>[
-                            Icon(Icons.photo_size_select_large,
+                            Icon(Icons.point_of_sale,
                               size:70.0,
                               color: Colors.blueGrey,
                             ),
