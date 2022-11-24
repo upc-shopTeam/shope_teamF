@@ -139,14 +139,16 @@ void checkLogin() async{
                         children: [
                           TextField(
                             controller: txtEmail,
+                            keyboardType: TextInputType.emailAddress,
                             obscureText: false,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
-                              labelText: 'Nombre',
+                              labelText: 'Correo',
                             ),
                           ),
                           TextField(
                             controller: txtPassword,
+                            keyboardType: TextInputType.text,
                             obscureText: true,
                               decoration: const InputDecoration(
 
@@ -209,25 +211,28 @@ void checkLogin() async{
 
                       ),
 
-                      child: Column(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
 
-                        children: [Text(
-                          '¿Todavía no tienes una cuenta?',
-                          style: TextStyle(
-                              color: Colors.white
+                          children: [Text(
+                            '¿Todavía no tienes una cuenta?',
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
                           ),
-                        ),
-                          TextButton(
-                              onPressed: (){
-                                Navigator.push(
-                                    context,MaterialPageRoute(builder: (context) => SignUpView()));
-                              },
-                              child: Text('Regístrate',style: TextStyle(
-                                  color: Colors.green[700],
-                                  fontWeight: FontWeight.bold
-                              ),)),
+                            TextButton(
+                                onPressed: (){
+                                  Navigator.push(
+                                      context,MaterialPageRoute(builder: (context) => SignUpView()));
+                                },
+                                child: Text('Regístrate',style: TextStyle(
+                                    color: Colors.green[700],
+                                    fontWeight: FontWeight.bold
+                                ),)),
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
