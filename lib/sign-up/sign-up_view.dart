@@ -54,100 +54,133 @@ class _SignUpViewState extends State<SignUpView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: Center(child: Text('Registro'),),
+        centerTitle: true ,
+        title:  Text('Registro'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(12.0),
         child: SafeArea(
 
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextField(
-                    controller: txtName,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Nombre',
-                    ),
-                  ),
-                  TextField(
-                    controller: txtDNI,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'DNI',
-                    ),
-                  ),
-                  TextField(
-                    controller: txtPhoneNumber,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Numero de celular',
-                    ),
-                  ),
-                  TextField(
-                    controller: txtNameShop,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Nombre de Tienda',
-                    ),
-                  ),
-                  TextField(
-                    controller: txtPhoto,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Foto',
 
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  TextField(
-                    controller: txtEmail,
-                    obscureText: false,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Correo',
 
-                    ),
-                  ),
-                  TextField(
-                    controller: txtPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Contraseña',
-                    ),
-                  ),
-                  
-                  SizedBox(
-                    height: 35,
-                  ),
-                  ElevatedButton(
-                      onPressed: (){
-                        setState(() {
-                          name = txtName.text;
-                           DNI=txtDNI.text ;
-                          phoneNumber=txtPhoneNumber.text;
-                          nameShop = txtNameShop.text;
-                          photo=txtPhoto.text;
-                          email= txtEmail.text;
-                          password=txtPassword.text;
-                        });
-                        register();
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(
-                            content:
-                            Text("Registrado")));
-                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
 
-                      },
-                      child: Text('Registrarse'))
-                ],
-              ),
+                    TextField(
+                      controller: txtName,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nombre',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtDNI,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'DNI',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtPhoneNumber,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Numero de Celular',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtNameShop,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nombre de Tienda',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtPhoto,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Foto',
+
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtEmail,
+                      obscureText: false,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Correo',
+
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    TextField(
+                      controller: txtPassword,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Contraseña',
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 35,
+                    ),
+                    ElevatedButton(
+                        onPressed: (){
+                          setState(() {
+                            name = txtName.text;
+                             DNI=txtDNI.text ;
+                            phoneNumber=txtPhoneNumber.text;
+                            nameShop = txtNameShop.text;
+                            photo=txtPhoto.text;
+                            email= txtEmail.text;
+                            password=txtPassword.text;
+                          });
+                          register();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
+                              content:
+                              Text("Registrado")));
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
+
+                        },
+                        child: Text('Registrarse'))
+                  ],
+                ),
+
             )
 
         ),

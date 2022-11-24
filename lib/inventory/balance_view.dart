@@ -37,7 +37,7 @@ class _BalanceViewState extends State<BalanceView> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-        backgroundColor:  (Colors.blue),
+        backgroundColor:  (Colors.green[500]),
         body: SafeArea(
           child:SingleChildScrollView(
             child: Column(

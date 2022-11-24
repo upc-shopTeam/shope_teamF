@@ -50,54 +50,131 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: new AppBar(
+        title: Text("TRABAJADOR"),
+        backgroundColor: Colors.green[600],
+      ),
+      backgroundColor: Colors.green[100],
       body: SafeArea(
-        child: Column(
-          children: [
-            OutlinedButton.icon(
-              onPressed: ()  {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileEmployeeView(id : employeeId)));
-              },
-              icon:Icon(Icons.person),
-              label: Text("Hola, $name"),
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.white70,
 
-            GridView.count(
-              shrinkWrap: true,
-
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProductView(list: const <Item>[],),
-                    ));
-                  },
-                  child: Text("Nueva venta"),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SalesView(),
-                    ));
-                  },
-                  child: Text("Ventas"),),
-              ],
-            ),
-            OutlinedButton.icon(
-              onPressed: () async {
-                SharedPreferences preferences = await SharedPreferences.getInstance();
-                await preferences.clear();
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
-              },
-              icon:Icon(Icons.login),
-              label: Text("Logout"),
-            )
-          ],
+                onPressed: ()  {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileEmployeeView(id : employeeId)));
+                },
+                icon:Icon(Icons.person,
+                  color: Colors.black,),
+                label: Text("Hola, $name",
+                  style: TextStyle(
+                      color: Colors.black
+                  ),
+                ),
+              ),
+
+              GridView.count(
+                shrinkWrap: true,
+
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  ElevatedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProductView(list: const <Item>[],),
+                      ));
+                    },
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children:
+                          <Widget>[
+                            Icon(Icons.photo_size_select_large,
+                              size:70.0,
+                              color: Colors.blueGrey,
+                            ),
+                            Text("Nueva Venta",
+                              style: new TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                  ),
+                  ElevatedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SalesView(),
+                      ));
+                    },
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(21.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children:
+                          <Widget>[
+                            Icon(Icons.list_alt,
+                              size:70.0,
+                              color: Colors.teal,
+                            ),
+                            Text("Ventas",
+                              style: new TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                  ),
+                ],
+              ),
+              OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.white70,
+
+                ),
+                onPressed: () async {
+                  SharedPreferences preferences = await SharedPreferences.getInstance();
+                  await preferences.clear();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
+                },
+                icon:Icon(Icons.login,
+                color: Colors.black,
+                ),
+                label: Text("Logout",
+                style: TextStyle(
+                  color: Colors.black
+                ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
