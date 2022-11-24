@@ -52,13 +52,9 @@ int numCar = 0;
                   ));
                   if(widget.list.isEmpty){
                     setState(() {
-
                       numCar = 0;
                     });
                   }
-
-
-
                 }, icon: const Icon(Icons.shopping_bag,size: 35,)),
                 Container(
                   padding: const EdgeInsets.all(5),

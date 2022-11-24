@@ -10,6 +10,8 @@ import 'package:shop_team/inventory/profile_owner.dart';
 import 'package:shop_team/inventory/sales_products_view.dart';
 import 'package:shop_team/sign-in/sign-in_view.dart';
 import 'package:http/http.dart' as http;
+
+import 'employee_view.dart';
 class HomeOwnerView extends StatefulWidget {
   const HomeOwnerView({Key? key}) : super(key: key);
 
@@ -81,6 +83,43 @@ String nameShop = '';
                     backgroundColor: Colors.white70,
 
                   ),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SalesProductsView(),
+                      ));
+                    },
+                    child: Text("Ventas por producto"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BalanceView(initDate:initDate,),
+                      ));
+                    },
+                    child: Text("Balance"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EmployeeRegister(),
+                      ));
+                    },
+                    child: Text("Agregar Trabajador"),),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EmployeeView(),
+                      ));
+                    },
+                    child: Text("Trabajadores"),),
+                ],
+              ),
+              OutlinedButton.icon(
+                  onPressed: () async {
+                      SharedPreferences preferences = await SharedPreferences.getInstance();
+                      await preferences.clear();
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
+
                   onPressed: ()  {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileOwner()));
                   },
@@ -100,6 +139,7 @@ String nameShop = '';
                   ),
 
                   onPressed: ()  {
+
                   },
                   icon:Icon(Icons.shop,
                     color: Colors.black,

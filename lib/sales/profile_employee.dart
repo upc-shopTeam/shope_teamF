@@ -9,8 +9,6 @@ class ProfileEmployeeView extends StatefulWidget {
 }
 
 class _ProfileEmployeeViewState extends State<ProfileEmployeeView> {
-
-
   String name = '';
   String email = '';
   String photo = '';
