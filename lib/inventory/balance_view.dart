@@ -106,64 +106,69 @@ class _BalanceViewState extends State<BalanceView> {
                         builder: (context, snap) {
                           //print(suma);
                           if(snap.hasData){
-                            return ListView.builder(
-                              scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: snap.data!.length,
-                                itemBuilder: (context, index){
+                            return Container(
+                              height: MediaQuery.of(context).size.height*0.4,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: snap.data!.length,
+                                  itemBuilder: (context, index){
 
-                                  var sale = snap.data![index];
-                                  DateTime dt = DateTime.parse(sale.date);
+                                    var sale = snap.data![index];
+                                    DateTime dt = DateTime.parse(sale.date);
 
-                                  var card =Container(
-                                  );
+                                    var card =Container(
+                                    );
 
-                                  if(dt.day == _selectedDate.day){
-                                       suma += sale.totalPayment;
-                                    card = Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Card(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text('COD: ${sale.id.substring(0,4)}'),
-                                                      Text('Cliente: ${sale.nameCustomer}')
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: TextButton(
-                                                    style: TextButton.styleFrom(
-                                                        backgroundColor: Colors.blue,
-                                                        foregroundColor: Colors.white
+                                    if(dt.day == _selectedDate.day){
+                                      print(dt.day);
+                                         suma += sale.totalPayment;
+                                      card = Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Card(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text('COD: ${sale.id.substring(0,4)}'),
+                                                        Text('Cliente: ${sale.nameCustomer}'),
+                                                        Text('Vendedor: ${sale.nameEmployee}')
+                                                      ],
                                                     ),
-                                                    child: Text('${sale.totalPayment}'),
-                                                    onPressed: () {  },
                                                   ),
-                                                )
-                                              ],
-                                            )
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: TextButton(
+                                                      style: TextButton.styleFrom(
+                                                          backgroundColor: Colors.green,
+                                                          foregroundColor: Colors.white
+                                                      ),
+                                                      child: Text('S/.${sale.totalPayment}'),
+                                                      onPressed: () {  },
+                                                    ),
+                                                  )
+                                                ],
+                                              )
 
+                                          ),
                                         ),
-                                      ),
+                                      );
+
+                                    }
+                                    return Column(
+                                      children: [
+                                        card
+                                      ],
                                     );
 
                                   }
-                                  return Column(
-                                    children: [
-                                      card
-                                    ],
-                                  );
 
-                                }
-
+                              ),
                             );
 
                           }
@@ -212,6 +217,7 @@ class _BalanceViewState extends State<BalanceView> {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idOwner=payload["dataId"];
     }
+
     final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${idOwner}/invoices"));
     //text
     final list = List.from(jsonDecode(res.body));
