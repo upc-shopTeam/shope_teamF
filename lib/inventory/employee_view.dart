@@ -6,6 +6,8 @@ import 'package:shop_team/api/employee.dart';
 
 import 'package:flutter/material.dart';
 
+import 'home_owner_view.dart';
+
 class EmployeeView extends StatefulWidget {
   const EmployeeView({Key? key}) : super(key: key);
 
@@ -175,8 +177,19 @@ class _EmployeeViewState extends State<EmployeeView> {
               ),
               TextButton(
                 onPressed: () {
+                  setState(() {
+                    name = txtName.text;
+                    DNI=txtDNI.text ;
+                    phoneNumber=txtPhoneNumber.text;
+                    photo=txtPhoto.text;
+                    email= txtEmail.text;
+                    password=txtPassword.text;
+                  });
                   createEmployee();
-                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(
+                      content:
+                      Text("Vendedor Registrado")));
                 },
                 child: const Text("Guardar"),
               )

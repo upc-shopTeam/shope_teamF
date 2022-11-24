@@ -114,7 +114,7 @@ String nameShop = '';
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EmployeeView(),
+                        builder: (context) => EmployeeRegister(),
                       ));
                     },
                     child: Text("Agregar Trabajador"),),
