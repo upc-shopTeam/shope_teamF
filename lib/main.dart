@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_team/inventory/home_owner_view.dart';
 import 'package:shop_team/inventory/invetory_view.dart';
 import 'package:shop_team/sign-in/sign-in_view.dart';
-import 'package:shop_team/sign-up/sign-up_view.dart';
-import 'sales/home.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       routes: {
         '/inventory':(context) => const InventoryView(),
