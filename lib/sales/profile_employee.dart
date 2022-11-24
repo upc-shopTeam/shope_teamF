@@ -38,9 +38,9 @@ class _ProfileEmployeeViewState extends State<ProfileEmployeeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[100],
       appBar: AppBar(
         title: Text('Profile'),
-        backgroundColor: Colors.lightBlue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -59,7 +59,7 @@ class _ProfileEmployeeViewState extends State<ProfileEmployeeView> {
               ),
               Text('${name}',
                 style: TextStyle(
-                  color: Colors.indigoAccent,
+
                   fontSize: 30,
                   fontWeight:  FontWeight.bold,
                 ),
@@ -72,75 +72,77 @@ class _ProfileEmployeeViewState extends State<ProfileEmployeeView> {
               //FILA 2
 
 
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    child: Text('Email: ', style: TextStyle(color: Colors.lightBlue,
-                        fontSize: 20, fontWeight: FontWeight.bold),),
+
+                  Row(
+
+                    children: [
+                      Container(
+                        width: 100,
+                        child: Text('Email: ', style: TextStyle(color: Colors.green,
+                            fontSize: 20, fontWeight: FontWeight.bold),),
+                      ),
+
+                      Text('$email', style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),)
+
+                    ],
                   ),
-
-                  Text('$email', style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),)
-
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
+                  SizedBox(
+                    height: 5,
+                  ),
 //FILA 3
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    child: Text('Celular: ', style: TextStyle(color: Colors.lightBlue,
-                        fontSize: 20, fontWeight: FontWeight.bold),),
+                  Row(
+                    children: [
+                      Container(
+                        width: 100,
+                        child: Text('Celular: ', style: TextStyle(color: Colors.green,
+                            fontSize: 20, fontWeight: FontWeight.bold),),
+                      ),
+
+                      Text('$phoneNumber', style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),)
+
+                    ],
                   ),
 
-                  Text('$phoneNumber', style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),)
-
-                ],
-              ),
-
-              SizedBox(
-                height: 5,
-              ),
+                  SizedBox(
+                    height: 5,
+                  ),
 //FILA 4
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    child: Text('DNI: ', style: TextStyle(color: Colors.lightBlue,
-                        fontSize: 20, fontWeight: FontWeight.bold),),
+                  Row(
+                    children: [
+                      Container(
+                        width: 100,
+                        child: Text('DNI: ', style: TextStyle(color: Colors.green,
+                            fontSize: 20, fontWeight: FontWeight.bold),),
+                      ),
+
+                      Text('$DNI', style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),)
+
+                    ],
                   ),
 
-                  Text('$DNI', style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),)
+                  SizedBox(
+                    height: 5,
+                  ),
+                  //FILA 5
+                  Row(
+                    children: [
+                      Container(
+                        width: 100,
+                        child: Text('Fecha de contrato: ', style: TextStyle(color: Colors.green,
+                            fontSize: 20, fontWeight: FontWeight.bold),),
+                      ),
 
+                      Text('${hireDate}', style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),)
+
+                    ],
+                  ),
                 ],
               ),
 
-              SizedBox(
-                height: 5,
-              ),
-              //FILA 5
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    child: Text('Fecha de contrato: ', style: TextStyle(color: Colors.lightBlue,
-                        fontSize: 20, fontWeight: FontWeight.bold),),
-                  ),
-
-                  Text('${hireDate}', style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),)
-
-                ],
-              ),
-
-            ]
-        ),
       ),
 
     );
