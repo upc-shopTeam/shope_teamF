@@ -30,6 +30,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+
       appBar: AppBar(
         title: Text('Ventas por producto'),
       ),
@@ -40,7 +41,7 @@ class _SalesProductsViewState extends State<SalesProductsView> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Card(
-                elevation: 20,
+                elevation: 15,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -87,65 +88,68 @@ class _SalesProductsViewState extends State<SalesProductsView> {
                 builder: (context, snap) {
                   if (snap.hasData) {
 
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: snap.data!.length,
-                        itemBuilder: (context, index) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height*0.7,
+                      child: ListView.builder(
 
-                          var product = snap.data![index];
+                          itemCount: snap.data!.length,
+                          itemBuilder: (context, index) {
 
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child:Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: Colors.blueGrey,
-                                      width: 2
-                                  )
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Icon(Icons.check, size: 30, color: Colors.green,),
-                                      Text(product.name,style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
+                            var product = snap.data![index];
 
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            return Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child:Container(
+                                decoration: BoxDecoration(
+                                  color:  Colors.green[100],
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: Colors.blueGrey,
+                                        width: 2
+                                    )
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text('Cant. Vendida:  ${product.initialAmount-product.currentAmount} u'),
-                                            Text('Precio de Venta:  S/${product.unitPrice}'),
-                                            Text('Total:  S/${(product.initialAmount-product.currentAmount)*product.unitPrice}')
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text('Cant. Comprada:  ${product.initialAmount} u'),
-                                            Text('Precio de Compra:  S/${product.purchasePrice}'),
-                                            Text('Total:  S/${product.initialAmount*product.purchasePrice}')
-                                          ],
-                                        )
+                                        const Icon(Icons.check, size: 30, color: Colors.green,),
+                                        Text(product.name,style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
                                       ],
                                     ),
-                                  )
 
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text('Cant. Vendida:  ${product.initialAmount-product.currentAmount} u'),
+                                              Text('Precio de Venta:  S/${product.unitPrice}'),
+                                              Text('Total:  S/${(product.initialAmount-product.currentAmount)*product.unitPrice}')
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text('Cant. Comprada:  ${product.initialAmount} u'),
+                                              Text('Precio de Compra:  S/${product.purchasePrice}'),
+                                              Text('Total:  S/${product.initialAmount*product.purchasePrice}')
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
+                            );
 
-                        });
+                          }),
+                    );
                   } else if (snap.hasError) {
                     return Center(
                       child: Text("error ${snap.error}"),
