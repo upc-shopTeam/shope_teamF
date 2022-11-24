@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
-import 'package:shop_team/sales/products_view.dart';
 import 'list_sale.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_team/api/product.dart';
@@ -73,6 +72,7 @@ class InvoiceView extends StatelessWidget {
 
     final invoice = {
       "employee": objEmployee["_id"],
+      "nameEmployee": objEmployee["name"],
       "nameCustomer": name,
       "dniCustomer": dni,
       "date": date.toString(),
@@ -90,9 +90,11 @@ class InvoiceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[100],
       appBar: AppBar(),
       body: Container(
-        color: Colors.blue,
+        height: MediaQuery.of(context).size.height*1,
+
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
@@ -251,7 +253,7 @@ class InvoiceView extends StatelessWidget {
                           },
                           icon: const Icon(Icons.check_circle,
                           size: 50,
-                          color: Colors.lightGreenAccent,)
+                          color: Colors.green,)
 
                       )
                     ],
