@@ -1,14 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/inventory/edit_profile.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class ProfileOwner extends StatefulWidget {
-  const ProfileOwner({Key? key}) : super(key: key);
+  String id;
+  ProfileOwner({required this.id});
 
   @override
   State<ProfileOwner> createState() => _ProfileOwnerState();
 }
 
 class _ProfileOwnerState extends State<ProfileOwner> {
+
+
+  String name = '';
+  String email = '';
+  String photo = '';
+  String hireDate = '';
+  String DNI = '';
+  String phoneNumber = '';
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getDataEmployee();
+    super.initState();
+  }
+  void getDataEmployee() async{
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${widget.id}")); //text
+    var obj = jsonDecode(res.body);
+    setState(() {
+      name = obj["name"];
+      email = obj["email"];
+      photo = obj["photo"];
+      DNI = obj["dni"];
+      phoneNumber = obj["phoneNumber"];
+    });
+    print(email);
+  }
 
   final double coverHeight = 280;
   final double profileHeight = 144;
@@ -76,7 +106,16 @@ class _ProfileOwnerState extends State<ProfileOwner> {
           numberWidget(),
           const SizedBox(height: 8),
           Text(
-            'Nombre:',
+            'Nombre: ${name}',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          Text(
+            'Correo: ${email}',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -84,7 +123,7 @@ class _ProfileOwnerState extends State<ProfileOwner> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Apellido:',
+            'DNI: ${DNI}',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -92,21 +131,14 @@ class _ProfileOwnerState extends State<ProfileOwner> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Correo:',
+            'Celular: ${phoneNumber}',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Puesto:',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
+
         ],
       )
   );
@@ -123,7 +155,7 @@ class _ProfileOwnerState extends State<ProfileOwner> {
   Widget buildProfileImage() => CircleAvatar(
     radius: profileHeight / 2,
     backgroundColor: Colors.grey.shade800,
-    backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8C0eZ51cUVq9NO5x1H7Avc0eOMZrACwC_gIYztkQCcjMX_Ma5qf1fNWkSAoyU00YASkQ&usqp=CAU'),
+    backgroundImage: NetworkImage(photo),
   );
 
   Widget numberWidget() => Row(
