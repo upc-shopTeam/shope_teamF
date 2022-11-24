@@ -24,7 +24,7 @@ class _EditProfileState extends State<EditProfile> {
           ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => ProfileOwner()));
+                builder: (BuildContext context) => ProfileOwner(id: 'o')));
           },
         ),
       ),
