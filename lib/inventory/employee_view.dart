@@ -44,7 +44,7 @@ class _EmployeeViewState extends State<EmployeeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Empleados'),
+        title: const Text('Vendedores'),
       ),
       body: SafeArea(
         child: FutureBuilder<List<Employee>>(
@@ -139,7 +139,7 @@ class _EmployeeViewState extends State<EmployeeView> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Usuario"),
+            title: const Text("Agregar Vendedor"),
 
             content: SingleChildScrollView(
               child: Column(

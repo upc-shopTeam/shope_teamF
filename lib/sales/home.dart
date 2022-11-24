@@ -55,7 +55,14 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text("$nameShop"),
+        title: Row(children: [
+          Icon(Icons.shop),
+          SizedBox(
+            width: 10,
+          ),
+          Text("$nameShop"),
+        ],
+        ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.green[600],
       ),
