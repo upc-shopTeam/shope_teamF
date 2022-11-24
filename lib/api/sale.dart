@@ -6,6 +6,7 @@ class Sale {
   String date;
   List sales;
   int totalPayment;
+  String nameEmployee;
 
   Sale({required this.id,
     required this.employee,
@@ -14,6 +15,7 @@ class Sale {
     required this.date,
     required this.sales,
     required this.totalPayment,
+    required this.nameEmployee
   });
   factory Sale.fromJson(Map json) {
     return Sale(
@@ -23,6 +25,7 @@ class Sale {
         dniCustomer: json["dniCustomer"],
         date: json["date"],
         sales: json["sales"],
-        totalPayment: json["totalPayment"]);
+        totalPayment: json["totalPayment"],
+      nameEmployee: json["nameEmployee"]);
   }
 }
