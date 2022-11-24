@@ -150,7 +150,7 @@ class _InventoryViewState extends State<InventoryView> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Usuario"),
+            title: const Text("Agregar Producto"),
 
             content: SingleChildScrollView(
               child: Column(
@@ -159,31 +159,47 @@ class _InventoryViewState extends State<InventoryView> {
                   TextField(
                     controller: name,
                     decoration: const InputDecoration(hintText: "Nombre"),
+                    keyboardType: TextInputType.text,
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     controller: description,
                     decoration: const InputDecoration(hintText: "Descricion"),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     controller: img,
                     decoration: const InputDecoration(hintText: "Imagen"),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.number,
                     controller: initialAmount,
                     decoration: const InputDecoration(
                         hintText: "Cantidad de productos"),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.number,
                     controller: purchasePrice,
                     decoration: const InputDecoration(
                         hintText: "Precio de compra"),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.number,
                     controller: unitPrice,
                     decoration: const InputDecoration(
                         hintText: "Precio de venta"),
