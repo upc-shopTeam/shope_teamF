@@ -28,15 +28,8 @@ class _EmployeeViewState extends State<EmployeeView> {
   final txtPhoto = TextEditingController();
   final txtEmail = TextEditingController();
   final txtPassword = TextEditingController();
+  final hireDate = DateTime.now();
 
-  String name = '';
-  String DNI ='';
-  String phoneNumber = '';
-  String photo ='';
-  String email ='';
-  String password ='';
-  DateTime hireDate = DateTime.now();
-  String owner = '';
 
 
   @override
@@ -63,24 +56,36 @@ class _EmployeeViewState extends State<EmployeeView> {
                     itemCount: snap.data!.length,
                     itemBuilder: (context, index) {
                       var employee = snap.data![index];
-                      var icon = const Icon(
-                        Icons.sentiment_very_satisfied_rounded, size: 30,);
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Card(
-                          child: ListTile(
-                            leading: icon,
-                            title: Text(employee.name,
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-                            trailing: Text("DNI: ${employee.DNI
-                                .toString()}. \nCelular: S/${employee
-                                .phoneNumber.toString()} "),
-                            /*onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    EmployeeDetailView(e: employee),
-                              ));
-                            },*/
+
+                      return Dismissible(
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: const Icon(Icons.delete),
+                        ),
+                        key:UniqueKey(),
+                        onDismissed: (DismissDirection direction) {
+                          setState(() {
+                            snap.data!.removeAt(index);
+                            deleteEmployee(employee.id);
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Card(
+                            child: ListTile(
+                              leading: Image.network(employee.photo,width: 65),
+                              title: Text(employee.name,
+                                style: TextStyle(fontWeight: FontWeight.bold),),
+                              trailing: Text("DNI: ${employee.DNI
+                                  .toString()}. \nCelular: S/${employee
+                                  .phoneNumber.toString()} \n"
+                                  "Correo: ${employee.email}",style: TextStyle(
+                                fontSize: 13
+                              ),),
+                            ),
                           ),
                         ),
                       );
@@ -104,6 +109,7 @@ class _EmployeeViewState extends State<EmployeeView> {
   }
 
   Future<List<Employee>> getEmployees() async {
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var idOwner = '';
@@ -111,16 +117,20 @@ class _EmployeeViewState extends State<EmployeeView> {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       idOwner = payload["dataId"];
     }
+
     final res = await http.get(Uri.parse(
         "https://express-shopapi.herokuapp.com/api/owner/${idOwner}/employees")); //text
 
     final list = List.from(jsonDecode(res.body));
+
     List<Employee> employees = [];
     for (var element in list) {
       final Employee employee = Employee.fromJson(element);
       employees.add(employee);
+      print('holassss');
     }
     print(employees);
+
     return employees;
   }
 
@@ -136,11 +146,12 @@ class _EmployeeViewState extends State<EmployeeView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
+                    keyboardType: TextInputType.text,
                     controller: txtName,
                     decoration: const InputDecoration(hintText: "Nombre"),
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     controller: txtDNI,
                     decoration: const InputDecoration(hintText: "DNI"),
                   ),
@@ -150,17 +161,17 @@ class _EmployeeViewState extends State<EmployeeView> {
                     decoration: const InputDecoration(hintText: "Email"),
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     controller: txtPassword,
                     decoration: const InputDecoration(hintText: "Contraseña"),
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.number,
                     controller: txtPhoneNumber,
                     decoration: const InputDecoration(hintText: "Celular"),
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     controller: txtPhoto,
                     decoration: const InputDecoration(
                         hintText: "Imagen"),
@@ -177,19 +188,13 @@ class _EmployeeViewState extends State<EmployeeView> {
               ),
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    name = txtName.text;
-                    DNI=txtDNI.text ;
-                    phoneNumber=txtPhoneNumber.text;
-                    photo=txtPhoto.text;
-                    email= txtEmail.text;
-                    password=txtPassword.text;
-                  });
+                  print('hola1');
                   createEmployee();
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(
                       content:
                       Text("Vendedor Registrado")));
+                  Navigator.of(context).pop();
                 },
                 child: const Text("Guardar"),
               )
@@ -199,6 +204,7 @@ class _EmployeeViewState extends State<EmployeeView> {
   }
 
   void createEmployee() async {
+    print('hola');
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? val = preferences.getString("token");
     var ownerId = '';
@@ -206,25 +212,45 @@ class _EmployeeViewState extends State<EmployeeView> {
       Map<String, dynamic> payload = Jwt.parseJwt(val);
       ownerId=payload["dataId"];
     }
-    setState(() {
-      owner = ownerId;
-    });
-    print(owner);
+
     final user = {
-      "name": name,
-      "dni": DNI,
-      "phoneNumber": phoneNumber,
-      "photo": photo,
-      "email": email,
-      "password": password,
+      "name": txtName.text,
+      "dni": txtDNI.text,
+      "phoneNumber": txtPhoneNumber.text,
+      "photo": txtPhoto.text,
+      "email": txtEmail.text,
+      "password": txtPassword.text,
       "hireDate": hireDate.toString(),
-      "owner":owner
+      "owner":ownerId
     };
 
     final headers = {"Content-Type": "application/json;charset=UTF-8"};
 
     final res = await http.post(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/sign-up"),
         headers: headers, body: jsonEncode(user));
-    print(res);
+    print(res.body);
+    txtName.clear();
+     txtName.clear();
+     txtDNI.clear();
+    txtPhoneNumber.clear();
+    txtPhoto.clear();
+     txtEmail.clear();
+    txtPassword.clear();
+    setState(() {
+      employees = getEmployees();
+    });
+
   }
+  void deleteEmployee(String id) async {
+
+
+
+    final headers = {"Content-Type": "application/json;charset=UTF-8"};
+
+    final res = await http.delete(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/$id"),
+        headers: headers);
+    print(res.body);
+
+  }
+
 }
