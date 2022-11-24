@@ -16,8 +16,11 @@ class _ProfileOwnerState extends State<ProfileOwner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
-          title: const Text('PERFIL'),
+
+          title: const Text('PERFIL'), backgroundColor: Colors.green[600],
+
           actions: [
             IconButton(
               icon: Icon(
@@ -31,6 +34,8 @@ class _ProfileOwnerState extends State<ProfileOwner> {
             ),
           ],
         ),
+
+        backgroundColor: Colors.green[100],
         body: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -49,7 +54,9 @@ class _ProfileOwnerState extends State<ProfileOwner> {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
+
         Container(
+          //aqui va un color para esa linea blanca
           margin: EdgeInsets.only(bottom: bottom),
           child: buildCoverImage(),
         ),

@@ -102,45 +102,37 @@ void checkLogin() async{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-
+      backgroundColor: Colors.green[100],
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
               child: Column(
                   children: [
+                    SizedBox(
+                      height: 50,
+                    ),
                     Text('SHOP TEAM',
                     style: TextStyle(
                       fontSize: 50,
-                      color: Colors.blue
+                      color: Colors.green[700]
                     ),),
-                    Container(
-                      decoration: BoxDecoration(
-                        color:   Color.fromARGB(100, 22, 44, 33),
-
-                      ),
-                      child: Column(
-                        children: [Text(
-                          '¿Todavía no tienes una cuenta?',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        ),
-                          TextButton(
-                              onPressed: (){
-                                Navigator.push(
-                                    context,MaterialPageRoute(builder: (context) => SignUpView()));
-                              },
-                              child: Text('Regístrate',style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold
-                              ),)),
-
-                        ],
-                      ),
-                    ),
                     SizedBox(
-                      height: 100,
+                      height: 20,
                     ),
+
+                    Container(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 170,
+                            width: 170,
+                            child: Image.asset('images/logo.png'),
+                          )
+                        ],
+                      )
+                    ),
+
+
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
@@ -169,7 +161,16 @@ void checkLogin() async{
                         ],
                       ),
                     ),
-                    ElevatedButton(onPressed: (){
+
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.green[700],
+
+                    ),onPressed: (){
                       login();
                       /*setState(() {
                         email = txtEmail.text;
@@ -196,8 +197,39 @@ void checkLogin() async{
 
 
 
-                    }, child: Text('Iniciar Sesión'))
+                    }, child: Text('Iniciar Sesión')),
 
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color:   Color.fromARGB(100, 22, 44, 33),
+
+                      ),
+
+                      child: Column(
+
+                        children: [Text(
+                          '¿Todavía no tienes una cuenta?',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                          TextButton(
+                              onPressed: (){
+                                Navigator.push(
+                                    context,MaterialPageRoute(builder: (context) => SignUpView()));
+                              },
+                              child: Text('Regístrate',style: TextStyle(
+                                  color: Colors.green[700],
+                                  fontWeight: FontWeight.bold
+                              ),)),
+
+                        ],
+                      ),
+                    ),
                   ],
               ),
             ),
