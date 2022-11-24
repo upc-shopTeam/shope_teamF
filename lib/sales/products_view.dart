@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'package:shop_team/sales/list_sale.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_team/api/Product.dart';
+import 'package:shop_team/api/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_team/sales/detail_view.dart';
 import 'package:shop_team/sales/sale_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class ProductView extends StatefulWidget {
 List<Item> list;
@@ -16,17 +19,20 @@ ProductView({super.key, required this.list});
 
 class _ProductViewState extends State<ProductView> {
 
-  late Future<List<Product>> products;
+   late Future<List<Product>> products;
   final headers = {"Content-Type": "application/json;charset=UTF-8"};
-  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/products");
-
+  String token = '';
+  String dataId = '';
  @override
   void initState() {
     // TODO: implement initState
+   products = getProductsByEmployee();
+
     super.initState();
-    products = getProducts();
+
 
   }
+
 
 
 int numCar = 0;
@@ -49,9 +55,6 @@ int numCar = 0;
                       numCar = 0;
                     });
                   }
-
-
-
                 }, icon: const Icon(Icons.shopping_bag,size: 35,)),
                 Container(
                   padding: const EdgeInsets.all(5),
@@ -70,11 +73,9 @@ int numCar = 0;
                       itemCount: snap.data!.length,
                       itemBuilder: (context, index) {
                         var product = snap.data![index];
-
                         return Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Card(
-
                             child: ListTile(
                               leading:   Image.network(product.img),
                               title: Text(product.name),
@@ -106,17 +107,32 @@ int numCar = 0;
     );
   }
 
-  Future<List<Product>> getProducts() async{
-    final res = await http.get(url); //text
+  Future<List<Product>> getProductsByEmployee() async{
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var objEmployee = {};
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      final user = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${payload["dataId"]}"));
+       objEmployee = jsonDecode(user.body);
+    }
+
+
+
+
+    print(objEmployee["owner"]);
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/owner/${objEmployee["owner"]}/products")); //text
     final list = List.from(jsonDecode(res.body));
      List<Product> products = [];
     list.forEach((element) {
       final Product product = Product.fromJson(element);
       products.add(product);
     });
+
+    print(products);
     return products;
   }
 }
-
 
 

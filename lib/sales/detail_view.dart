@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:shop_team/api/Product.dart';
+import 'package:shop_team/api/product.dart';
 import 'package:shop_team/sales/list_sale.dart';
 import 'package:shop_team/sales/products_view.dart';
-import 'package:shop_team/sales/sale_view.dart';
 
 class DetailView extends StatefulWidget {
   Product p;
@@ -77,7 +76,7 @@ class _DetailViewState extends State<DetailView> {
                 height: 50,
                 width: 130,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(38), color: Color(0xFF42A5F5)),
+                    borderRadius: BorderRadius.circular(38), color: Colors.green),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:[
@@ -104,14 +103,12 @@ class _DetailViewState extends State<DetailView> {
                   height: 50,
                   width: 130,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(38), color: const Color(0xFF42A5F5)),
+                      borderRadius: BorderRadius.circular(38), color: Colors.green),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [TextButton(
                       onPressed: () {
-                        setState(() {
-                           item.add(Item(amount: _cont,product: widget.p));
-                        });
+                            item.add(Item(amount: _cont,product: widget.p));
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ProductView(list: item),
                         ));

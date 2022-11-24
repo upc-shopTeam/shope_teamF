@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_team/api/sale.dart';
 import 'dart:convert';
 
@@ -15,7 +17,7 @@ class _SalesViewState extends State<SalesView> {
 
   bool _expanded = false;
 
-  final url = Uri.parse("https://express-shopapi.herokuapp.com/api/invoices/");
+  //final url = Uri.parse("https://express-shopapi.herokuapp.com/api/invoices/");
 
   late Future<List<Sale>> sales;
   @override
@@ -149,8 +151,18 @@ class _SalesViewState extends State<SalesView> {
 
   }
   Future<List<Sale>> getProducts() async{
-    final res = await http.get(url); //text
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? val = preferences.getString("token");
+    var idEmployee = '';
+    if(val!=null) {
+      Map<String, dynamic> payload = Jwt.parseJwt(val);
+      idEmployee=payload["dataId"];
+    }
+    final res = await http.get(Uri.parse("https://express-shopapi.herokuapp.com/api/employee/${idEmployee}/invoices"));
+
     final list = List.from(jsonDecode(res.body));
+
     List<Sale> sales = [];
     list.forEach((element) {
       final Sale product = Sale.fromJson(element);

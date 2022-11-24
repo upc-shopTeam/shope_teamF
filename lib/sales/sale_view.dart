@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop_team/sales/invoice_view.dart';
-
-import '../api/Product.dart';
 import 'list_sale.dart';
 
 class SaleView extends StatefulWidget {
@@ -66,7 +64,7 @@ class _SaleViewState extends State<SaleView> {
                   onDismissed: (DismissDirection direction) {
                     setState(() {
                       items.removeAt(index);
-                      total = 0;
+                     total = 0;
                       for (var i in items) {
                         var a = i.amount * i.product.unitPrice;
                         total += a;
@@ -111,7 +109,7 @@ class _SaleViewState extends State<SaleView> {
                                 Container(
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(38), color: const Color(0xFF42A5F5)),
+                                      borderRadius: BorderRadius.circular(38), color: Colors.green),
                                   child: Row(
                                     children: [
                                       IconButton(

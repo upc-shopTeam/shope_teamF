@@ -1,4 +1,4 @@
-import 'package:shop_team/api/Product.dart';
+import 'package:shop_team/api/product.dart';
 
 class Item{
   int amount;
