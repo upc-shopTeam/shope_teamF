@@ -58,6 +58,7 @@ class _SignUpViewState extends State<SignUpView> {
       appBar: AppBar(
         centerTitle: true ,
         title:  Text('Registro'),
+        backgroundColor: Colors.green[700],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -74,6 +75,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtName,
+                      keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -86,10 +88,14 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtDNI,
+                      keyboardType: TextInputType.number,
                       obscureText: false,
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderSide:  const BorderSide(color: Colors.grey, width: 0.0),
+                        ),
                         labelText: 'DNI',
+
                       ),
                     ),
                     const SizedBox(
@@ -98,6 +104,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtPhoneNumber,
+                      keyboardType: TextInputType.number,
                       obscureText: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -110,6 +117,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtNameShop,
+                      keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -122,6 +130,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtPhoto,
+                      keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -135,6 +144,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtEmail,
+                      keyboardType: TextInputType.emailAddress,
                       obscureText: false,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -148,6 +158,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                     TextField(
                       controller: txtPassword,
+                      keyboardType: TextInputType.text,
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -159,7 +170,12 @@ class _SignUpViewState extends State<SignUpView> {
                       height: 35,
                     ),
                     ElevatedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.green[700],
+
+                          ),
                         onPressed: (){
+
                           setState(() {
                             name = txtName.text;
                              DNI=txtDNI.text ;
@@ -171,13 +187,15 @@ class _SignUpViewState extends State<SignUpView> {
                           });
                           register();
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(
+                              .showSnackBar(const SnackBar(
                               content:
                               Text("Registrado")));
                           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>SignInView()), (route) => false);
 
                         },
-                        child: Text('Registrarse'))
+
+                        child: Text('Registrarse')),
+
                   ],
                 ),
 
